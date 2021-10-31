@@ -1,0 +1,15 @@
+function exec_hooks() {
+  find "$1" -type f -executable -exec {} \;
+}
+
+function emerge() {
+  exec_hooks "/etc/portage/hooks/emerge/pre.d"
+  $(which emerge) $@
+  exec_hooks "/etc/portage/hooks/emerge/post.d"
+}
+
+function quickpkg() {
+  exec_hooks "/etc/portage/hooks/quickpkg/pre.d"
+  $(which quickpkg) $@
+  exec_hooks "/etc/portage/hooks/quickpkg/post.d"
+}
